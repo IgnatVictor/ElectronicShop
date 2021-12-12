@@ -41,7 +41,7 @@ function Product(props) {
           <Typography variant="h5" gutterBottom>
             {product.name}
           </Typography>
-          <Typography>{product.price + " $"}</Typography>
+          <Typography variant="h5">{product.price + "$"}</Typography>
         </div>
         <Typography variant="body2" color="textSecondary">
           {" "}

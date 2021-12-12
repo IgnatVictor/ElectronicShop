@@ -12,7 +12,7 @@ function FormInput({ name, label, required }) {
         render={({ field }) => <TextField
         fullWidth 
         label={label}
-        required={required}
+        required
         {...field} />}
         
         name={name}

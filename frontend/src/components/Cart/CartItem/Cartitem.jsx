@@ -15,21 +15,6 @@ const Cartitem = (props) => {
   const {item, onAdd, onRemove, onRemoveProduct} = props;
   const classes = useStyles();
 
-  
-  // let Items= JSON.parse(localStorage.getItem("cartItems"))
-
-  // const itemDecrease = () => {
-  //   Items?.forEach(element => {
-  //       if(element.name === item.name) {
-  //         if(element.qty>= 1) {
-  //           element.qty = element.qty -1;
-  //           item.qty = item.qty -1;
-  //         }
-  //       }
-  //       // localStorage.setItem("cartItems", JSON.stringify(Items))
-  //   });
-  // }
-
   return (
     <Card>
       <CardMedia image = {item.image} alt= {item.name} className= {classes.media}/>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {  AppBar,  Toolbar,  IconButton,  Badge,  MenuItem,  Menu,  Typography,  Input, ListItemSecondaryAction,} from "@material-ui/core";
+import {  AppBar,  Toolbar,  IconButton,  Badge,  MenuItem,  Menu,Button,  Typography,  Input, ListItemSecondaryAction,} from "@material-ui/core";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -14,18 +14,24 @@ import verifyIfTokenIsExpired from "../Services/UserCheck"
 import LogOut from "../Services/LogOut"
 import {Link} from 'react-router-dom'
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useHistory } from "react-router-dom"
+import { atom, useAtom } from "jotai";
+import { LOGGEDIN, MODALL } from "../atom/Atom";
+
 
 function Navbar(props) {
+  const [logged, setLogged] = useAtom(LOGGEDIN);
   const {onAdd,cartItems} = props;
   const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useAtom(MODALL);
+  
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState(false);
   const [loginMessage, setLoginMessage] = useState("");
-  const [loginStatus, setLoginStatus] = useState("");
   const url = "http://localhost:8080/api/auth/signin";
   let [count2, setCount2] =useState(0);
+  
 
   let count = () => {
     count2 =0
@@ -44,8 +50,9 @@ function Navbar(props) {
   
   const updateUsername = (e) => setUsername(e.target.value);
   const updatePassword = (e) => setPassword(e.target.value);
+  const handleCloseModal = () => setOpen(false);
   const handleOpenModal = () => setOpen(true);
-  const handleCloseModal = () => {setOpen(false)};
+  
   
   const login = () => {
     axios
@@ -57,10 +64,10 @@ function Navbar(props) {
         localStorage.setItem("user", JSON.stringify(response.data.username));
         localStorage.setItem("token",JSON.stringify(response.data.accessToken));
         localStorage.setItem("id",JSON.stringify(response.data.id));
-
-        console.log(localStorage.getItem("user"));
-        setLoginStatus(false);
+        setLogged(true);
         handleCloseModal();
+        
+        
       });
 
     if (localStorage.getItem("user") === "") {
@@ -88,12 +95,12 @@ function Navbar(props) {
             <img
               src={logo}
               alt="Electronic.js"
-              height="25px"
+              height="75px"
               className={classes.image}
             />
-            Electronic store
+            Electric Gaming
           </Typography>
-          
+         
           <div className={classes.grow} />
 
           <div className={classes.button}>
@@ -167,12 +174,12 @@ function Navbar(props) {
                 spacing={2}
                 direction="row"
               >
-                <button onClick={login} type="submit">
+                <Button onClick={login} type="submit">
                   Log In
-                </button>
-                <button onClick={()=>{handleCloseModal();setAlert(false)}} variant="text" color="error">
+                </Button>
+                <Button onClick={()=>{handleCloseModal();setAlert(false)}} variant="text" color="error">
                   Cancel
-                </button>
+                </Button>
               </Stack>
             </Box>
           </Modal>

@@ -1,7 +1,4 @@
 package com.bezkoder.springjwt.cart;
-import com.bezkoder.springjwt.models.User;
-import com.bezkoder.springjwt.products.Products;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
