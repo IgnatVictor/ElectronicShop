@@ -20,4 +20,20 @@ public class ProductController {
         return productService.findProductsWithPagination(page, limit);
     }
 
+    @GetMapping("/category")
+    public Page<Products> getCategory(@RequestParam(name = "page", required = true) int page, @RequestParam(name = "limit", required = true) int limit,@RequestParam(name = "category", required = true) String category) {
+        if(category.equals("all")) {
+            return productService.findProductsWithPagination(page, limit);
+        }
+        return productService.findProductsWithPaginationAndCategory(page,limit,category);
+    }
+
+    @GetMapping("/search")
+    public  Page<Products> getSearch(@RequestParam(name = "page", required = true) int page, @RequestParam(name = "limit", required = true) int limit,@RequestParam(name = "search", required = true) String search) {
+        if(search.equals("all")) {
+            return productService.findProductsWithPagination(page, limit);
+        }
+        return  productService.searchProductsWithPaginationAndCategory(page,limit,search);
+    }
+
 }
